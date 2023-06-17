@@ -10,7 +10,6 @@ class SafeTimedRotatingFileHandler(logging.handlers.TimedRotatingFileHandler):
     def __init__(self, filename='', when='h', interval=1, backupCount=0, encoding=None, delay=False, utc=False,
                  atTime=None, maxBytes=50 * 1024 * 1024):
         super().__init__(filename, when, interval, backupCount, encoding, delay, utc, atTime)
-        print(11111111, filename, when, backupCount, encoding, )
         self.maxBytes = maxBytes
 
     def shouldRollover(self, record):
@@ -155,6 +154,16 @@ LOGGING_CONFIG = {
     "handlers": {
         "default": {
             "formatter": "default",
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stderr",
+        },
+        "access": {
+            "formatter": "access",
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout",
+        },
+        "default_file": {
+            "formatter": "default",
             "class": "loggers.logger.SafeTimedRotatingFileHandler",
             "filename": str(Path(__file__).parent.parent.joinpath('logs').joinpath(f"daily_log_EMS_REST_API.log").absolute()),
             "when": "MIDNIGHT",
@@ -162,19 +171,19 @@ LOGGING_CONFIG = {
             "maxBytes": 1024 * 1024 * 1024,
             "encoding": 'utf-8',
         },
-         "access": {
+         "access_file": {
             "formatter": "access",
             "class": "loggers.logger.SafeTimedRotatingFileHandler",
             "filename": str(Path(__file__).parent.parent.joinpath('logs').joinpath(f"daily_log_EMS_REST_API.log").absolute()),
             "when": "MIDNIGHT",
             "backupCount": 0,
             "maxBytes": 1024 * 1024 * 1024,
-            "encoding": 'utf-8'
+            "encoding": 'utf-8',
         },
     },
     "loggers": {
-        "uvicorn": {"handlers": ["default"], "level": "INFO", "propagate": False},
+        "uvicorn": {"handlers": ["default", "default_file"], "level": "INFO", "propagate": False},
         "uvicorn.error": {"level": "INFO"},
-        "uvicorn.access": {"handlers": ["access"], "level": "INFO", "propagate": False},
+        "uvicorn.access": {"handlers": ["access", "access_file"], "level": "INFO", "propagate": False},
     },
 }

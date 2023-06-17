@@ -1,0 +1,4 @@
+2023-06-17 11:18:50,039 - uvicorn.error - INFO - server.py[265] - shutdown -  Shutting down
+2023-06-17 11:18:50,139 - uvicorn.error - INFO - on.py[67] - shutdown -  Waiting for application shutdown.
+2023-06-17 11:18:50,140 - uvicorn.error - INFO - on.py[78] - shutdown -  Application shutdown complete.
+2023-06-17 11:18:50,140 - uvicorn.error - INFO - server.py[86] - serve -  Finished server process [[36m23519[0m]
