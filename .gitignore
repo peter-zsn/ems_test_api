@@ -8,3 +8,5 @@ node_modules/
 /logs/*.log
 *.log
 log/
+*.log
+*.log.*
