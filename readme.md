@@ -6,7 +6,7 @@ ems_rest_api
 │  ├─ __init__.py
 │  ├─ index.py
 │  ├─ routers.py    ----跟路由
-│  └─ systems
+│  └─ systems       ----系统相关目录
 │     ├─ __init__.py
 │     ├─ routers.py --- 系统路由
 │     └─ views.py   ----视图
