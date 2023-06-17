@@ -13,7 +13,7 @@ async def ping(username: str = '', password: str = ''):
     :return: 是否成功
     """
     logger.info(f'username:{username}')
-    logger.info(f'password{password}')
+    logger.error(f'password{password}')
     # data = await request.json()
     # print(data)
     return {'status': 'ok'}
