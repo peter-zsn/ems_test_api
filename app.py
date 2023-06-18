@@ -5,13 +5,19 @@ from apps.routers import root_routers
 from middlewares.auth_milldewares import AuthMiddleware
 from loggers.logger import LOGGING_CONFIG
 from libs.websocket_server import WebSocketService
-
 app = FastAPI(title='ems_rest_api')
 app.add_middleware(
     AuthMiddleware
 )
 
+@app.on_event("startup")
+def start_up():
+    print(123)
 
+@app.on_event('shutdown')
+def end():
+    print(456)
+    
 # WebSocketService.setDaemon(True)
 # WebSocketService.start()
 
