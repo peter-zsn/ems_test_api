@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 class SafeTimedRotatingFileHandler(logging.handlers.TimedRotatingFileHandler):
-    def __init__(self, filename='', when='h', interval=1, backupCount=0, encoding=None, delay=False, utc=False,
+    def __init__(self, filename='log.log', when='h', interval=1, backupCount=0, encoding=None, delay=False, utc=False,
                  atTime=None, maxBytes=50 * 1024 * 1024):
         super().__init__(filename, when, interval, backupCount, encoding, delay, utc, atTime)
         self.maxBytes = maxBytes

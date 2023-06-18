@@ -12,7 +12,3 @@ app.add_middleware(
 
 app.include_router(root_routers)
 uvicorn.run(app=app, host='127.0.0.1', port=8080, log_config=LOGGING_CONFIG)
-
-'''
-uvicorn app:app --host 0.0.0.0 --port 8080 --workers 4 
-'''
