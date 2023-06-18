@@ -64,10 +64,18 @@ class RedisClient:
         '''
         keys = self.redis_client.scan_iter(match=f"{re_str}")
         return [str(key) for key in keys]
+    
+    def subscribe(self, channel_name):
+        return self.redis_client.subscribe(channel_name)
+        
 
 
 if __name__ == "__main__":
     redis_client = RedisClient()
-    redis_client.set('test', 123)
-    a = redis_client.get('test')
-    print(a)
+    sub_obj = redis_client.redis_client.pubsub()
+    sub_obj.subscribe('aaa')
+    sub_obj.parse_response()
+    while True:
+        message = sub_obj.parse_response()
+        print(message, 12312312)
+    

@@ -3,10 +3,14 @@ from websockets.exceptions import ConnectionClosedError
 from starlette.requests import Request
 from loggers.logger import setup_log
 import asyncio
+import aioredis
+
 
 
 logger = setup_log()
 websocket_router = APIRouter()
+
+redis_client = aioredis.from_url("redis://localhost")
 
 
 @websocket_router.post('/ping', summary='websocket接口注释', description='接口描述', tags=['systems'])
@@ -45,3 +49,29 @@ async def test(websocket: WebSocket):
             logger.error('websocker disconnect')
         logger.info(e)
     # return {}
+    
+
+async def test_channel_aaa_redis_pub():
+    # conn = await aioredis.create_connection(('localhost', 6379))
+    pubsub = redis_client.pubsub()
+    return await pubsub
+
+
+@websocket_router.websocket('/test2')
+async def test2(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        data = await websocket.receive_text()
+        pubsub = redis_client.pubsub()
+        await pubsub.subscribe('aaa',)
+        while True:
+            message = await pubsub.get_message()
+            if message:
+                if type(message['data']) == bytes:
+                    await websocket.send_text(message['data'].decode())
+                else:
+                    await websocket.send_text('初始数据')
+    except Exception as e:
+        if isinstance(e, ConnectionClosedError):
+            logger.error('websocker disconnect')
+        logger.info(e)

@@ -3,7 +3,7 @@ import websockets
 import time
 
 async def permanant_conn():
-    wss_url = 'ws://localhost:8080/ws/test'
+    wss_url = 'ws://localhost:8080/ws/test2'
     async with websockets.connect(wss_url) as websocket:
         message = "shuainan"
         await websocket.send(message)
