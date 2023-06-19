@@ -1,5 +1,8 @@
-
+生产启用多个woker
 gunicorn运行： 
+app.py 这行代码注释：
+uvicorn.run("app:app", host='127.0.0.1', port=8080, workers=1, log_config=LOGGING_CONFIG)
+
 gunicorn.py 配置对应的配置信息
 gunicorn -c gunicorn.py app:app
 
